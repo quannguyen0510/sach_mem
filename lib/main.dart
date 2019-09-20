@@ -3,49 +3,36 @@ import 'package:flutter/material.dart';
 void main() => runApp(MaterialApp(
       title: "Sách mềm",
       theme: ThemeData(
-        primaryColor: Colors.grey[100],
+        primaryColor: Colors.grey,
         textTheme: TextTheme(title: TextStyle(fontSize: 30.0)),
       ),
       home: new MainPage(),
     ));
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final appName = "Sách";
-//     return MaterialApp(
-//       title: appName,
-//       theme: ThemeData(
-//         primaryColor: Colors.grey[100],
-//         textTheme: TextTheme(title: TextStyle(fontSize: 30.0)),
-//       ),
-//       home: MyStatelessWidget(
-//         title: appName,
-//       ),
-//     );
-//   }
-// }
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 final SnackBar snackBar = const SnackBar(
   content: Text('Showing Snackber'),
 );
 
-// void openPage(BuildContext context) {
-//   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-//     return Scaffold(
-//       appBar: AppBar(),
-//     );
-//   },
-//   ));
-// }
-
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class Item {
+  const Item({this.title, this.icon});
+  final String title;
+  final IconData icon;
+}
 
+List<Item> items = <Item>[
+  Item(title: "Sách", icon: Icons.book),
+  Item(title: "Kết quả học", icon: Icons.insert_chart),
+  Item(title: "Người dùng", icon: Icons.account_circle),
+  Item(title: "Giới thiệu", icon: Icons.info),
+  Item(title: "Góp ý, báo lỗi", icon: Icons.flag)
+];
+
+class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -60,14 +47,38 @@ class _MainPageState extends State<MainPage> {
               backgroundColor: Theme.of(context).primaryColor,
             )
           ],
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
           backgroundColor: Theme.of(context).primaryColor,
-          // actions: <Widget>[
-          //   IconButton()
-          // ],
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              new Container(
+                child: new DrawerHeader(
+                    margin: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Từ vựng - Sách mềm",
+                      style: TextStyle(fontSize: 20.0),
+                    )),
+                color: Colors.grey[300],
+                height: 120.0,
+              ),
+              ListView.builder(
+                padding: EdgeInsets.all(0.0),
+                shrinkWrap: true,
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(items[index].title, style: TextStyle(fontSize: 18.0),),
+                    leading: Icon(items[index].icon),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              )
+            ],
+          ),
         ),
         body: new ListView(
           shrinkWrap: true,
@@ -173,65 +184,3 @@ class ChoiceCard extends StatelessWidget {
         ));
   }
 }
-
-class Item {
-  const Item({this.title, this.icon});
-  final String title;
-  final IconData icon;
-}
-
-// List<Item> items = <Item>[
-//   Item(title: "Sách", icon: Icons.book),
-//   Item(title: "Kết quả học", icon: Icons.insert_chart),
-//   Item(title: "Người dùng", icon: Icons.account_circle),
-//   Item(title: "Giới thiệu", icon: Icons.info),
-//   Item(title: "Góp ý, báo lỗi", icon: Icons.flag)
-// ];
-
-// class DisplayItem extends StatelessWidget {
-//   const DisplayItem(
-//       {Key key,
-//       this.choice,
-//       this.onTap,
-//       @required this.item,
-//       this.selected: false})
-//       : super(key: key);
-
-//   final Item choice;
-//   final VoidCallback onTap;
-//   final Item item;
-//   final bool selected;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     TextStyle textStyle = Theme.of(context).textTheme.display1;
-//     if (selected)
-//       textStyle = textStyle.copyWith(color: Colors.lightGreenAccent[400]);
-//     return Card(
-//         color: Colors.white,
-//         child: Row(
-//           children: <Widget>[
-//             new Container(
-//                 padding: const EdgeInsets.all(8.0),
-//                 alignment: Alignment.topLeft,
-//                 child: Icon(
-//                   item.icon,
-//                   size: 80.0,
-//                   color: textStyle.color,
-//                 )),
-//             new Expanded(
-//                 child: new Container(
-//               padding: const EdgeInsets.all(10.0),
-//               alignment: Alignment.topLeft,
-//               child: Text(
-//                 item.title,
-//                 style: null,
-//                 textAlign: TextAlign.left,
-//                 maxLines: 5,
-//               ),
-//             )),
-//           ],
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//         ));
-//   }
-// }
