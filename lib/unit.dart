@@ -40,6 +40,12 @@ class _UnitPageState extends State<UnitPage> {
         appBar: AppBar(
           title: Text('Tiếng anh 1 Macmillan', style: TextStyle(color: Colors.black, fontSize: 16.0),),
           backgroundColor: Theme.of(context).primaryColor,
+          leading: new FlatButton(
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+            child:new Icon(Icons.arrow_back)
+          )
         ),
         body: Center(
           child: ListView.builder(

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:sach_mem/dialog.dart';
+import 'package:sach_mem/intro.dart';
+import 'package:sach_mem/login.dart';
+import 'package:sach_mem/menu.dart';
+import 'package:sach_mem/report.dart';
 import 'package:sach_mem/unit.dart';
 
 void main() => runApp(MaterialApp(
       title: "Sách mềm",
       routes: <String, WidgetBuilder>{
-        '/unit': (BuildContext context) => new UnitPage(),
+        '/unit': (BuildContext context) => UnitPage(),
+        '/about': (BuildContext context) => IntroPage(),
+        '/login': (BuildContext context) => LoginPage(),
+        '/report': (BuildContext context) => ReportPage()
       },
       theme: ThemeData(
         primaryColor: Colors.grey[100],
@@ -15,47 +23,6 @@ void main() => runApp(MaterialApp(
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
-}
-
-class Item {
-  const Item({this.title, this.icon});
-  final String title;
-  final IconData icon;
-}
-
-List<Item> items = <Item>[
-  Item(title: "Sách", icon: Icons.book),
-  Item(title: "Kết quả học", icon: Icons.insert_chart),
-  Item(title: "Người dùng", icon: Icons.account_circle),
-  Item(title: "Giới thiệu", icon: Icons.info),
-  Item(title: "Góp ý, báo lỗi", icon: Icons.flag)
-];
-
-Widget _openMail(BuildContext context) {
-  return new Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: <Widget>[
-      AlertDialog(
-        title: const Text(
-          "Open Mail?",
-          style: TextStyle(fontSize: 20.0),
-        ),
-        actions: <Widget>[
-          new FlatButton(
-            child: const Text("Open Mail."),
-            color: Colors.blue[500],
-            onPressed: () {},
-          ),
-          new FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text("Close"),
-          ),
-        ],
-      )
-    ],
-  );
 }
 
 class _MainPageState extends State<MainPage> {
@@ -73,47 +40,15 @@ class _MainPageState extends State<MainPage> {
               onPressed: () {
                 showDialog(
                     context: context,
-                    builder: (BuildContext context) => _openMail(context));
+                    builder: (BuildContext context) =>
+                        MessageDialog(appLink: "mailto:lienhe@sachmem.vn"));
               },
               backgroundColor: Theme.of(context).primaryColor,
             )
           ],
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              new Container(
-                child: new DrawerHeader(
-                    margin: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Từ vựng - Sách mềm",
-                      style: TextStyle(fontSize: 20.0),
-                    )),
-                color: Colors.grey[300],
-                height: 120.0,
-              ),
-              ListView.builder(
-                padding: EdgeInsets.all(0.0),
-                shrinkWrap: true,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      items[index].title,
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    leading: Icon(items[index].icon),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+        drawer: (MenuDrawer()),
         body: new ListView(
           shrinkWrap: true,
           padding: const EdgeInsets.all(20.0),

@@ -8,6 +8,7 @@ class DatabaseHelper {
   factory DatabaseHelper() => _instance;
 
   final String tableUnit = 'unitTable';
+  final String tableListUnit = 'listUnitTable';
   final String columnId = 'id';
   final String columnUnit = 'unit';
   final String columnTitle = 'title';
@@ -34,10 +35,14 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
+        'CREATE TABLE listUnit (id INTEGER PRIMARY KEY, img TEXT, title TEXT)');
+    await db.execute(
         'CREATE TABLE $tableUnit($columnId INTEGER PRIMARY KEY, $columnUnit TEXT, $columnTitle TEXT)');
 
-    await db.rawInsert('INSERT INTO $tableUnit ($columnId, $columnUnit, $columnTitle) VALUES(1, "Unit 1", "In the park")');
-    await db.rawInsert('INSERT INTO $tableUnit ($columnId, $columnUnit, $columnTitle) VALUES(2, "Unit 2", "In the dining room")');
+    await db.rawInsert(
+        'INSERT INTO $tableUnit ($columnId, $columnUnit, $columnTitle) VALUES(1, "Unit 1", "In the park"), VALUES(3, "Unit 3", "At the street market"');
+    await db.rawInsert(
+        'INSERT INTO $tableUnit ($columnId, $columnUnit, $columnTitle) VALUES(2, "Unit 2", "In the dining room")');
   }
 
   Future<List> getAllUnits() async {

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "42611596007",
+    "firebase_url": "https://sachmem-124cb.firebaseio.com",
+    "project_id": "sachmem-124cb",
+    "storage_bucket": "sachmem-124cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42611596007:android:b0c157342a1c1bff60a042",
+        "android_client_info": {
+          "package_name": "com.example.sach_mem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42611596007-tbho4j78c8aope3chb3d1susliu8g9al.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGZUq1PGBNcgp2Wy4174_5O7qDXTKTTRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42611596007-tbho4j78c8aope3chb3d1susliu8g9al.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
